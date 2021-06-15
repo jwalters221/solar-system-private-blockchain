@@ -77,10 +77,14 @@ class Blockchain {
      * @param {*} address 
      */
     requestMessageOwnershipVerification(address) {
-        return new Promise((resolve) => {
-            
+        return new Promise((resolve, reject) => {
+           resolve(`${address}:${this._getCurrentTimeStamp()}:starRegistry`)
         });
     }
+
+    _getCurrentTimeStamp() {
+        return new Date().getTime().toString().slice(0,-3);
+    }    
 
     /**
      * The submitStar(address, message, signature, star) method
@@ -102,7 +106,8 @@ class Blockchain {
     submitStar(address, message, signature, star) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-            
+
+            //let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
         });
     }
 
