@@ -107,7 +107,13 @@ class Blockchain {
         let self = this;
         return new Promise(async (resolve, reject) => {
 
-            //let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
+            let messageTime = parseInt(message.split(':')[1]);
+            let currentTime = this._getCurrentTimeStamp();
+            let diffMins = (currentTime - messageTime) / 60; // minutes
+            // resolve(messageTime + ' ' + currentTime);
+            //resolve('test');
+            resolve(diffMins);
+
         });
     }
 
