@@ -21,7 +21,7 @@ class Block {
 		this.body = Buffer.from(JSON.stringify(data)).toString('hex');   // Will contain the transactions stored in the block, by default it will encode the data
 		this.time = 0;                                              // Timestamp for the Block creation
 		this.previousBlockHash = null;                              // Reference to the previous Block Hash
-        this.data = data;
+        //this.data = data;
     }
     
     /**
