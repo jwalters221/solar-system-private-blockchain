@@ -123,7 +123,7 @@ class Blockchain {
             if(diffMins <= 5){
                 let verify = bitcoinMessage.verify(message, address, signature);
                 if(verify){
-                    resolve(this._addBlock(star));
+                    resolve(this._addBlock({'owner': address, 'star': star}));
                 } else {
                     reject('message not verified');
                 }
@@ -143,7 +143,7 @@ class Blockchain {
     getBlockByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
-           
+       
         });
     }
 
@@ -174,7 +174,13 @@ class Blockchain {
         let self = this;
         let stars = [];
         return new Promise((resolve, reject) => {
-            
+            self.chain.forEach(async(block) => {
+                let blockData = await block.getBData();
+                if(blockData.owner === address){
+                    stars.push(blockData);
+                }
+                resolve(stars);
+            });
         });
     }
 
