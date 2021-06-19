@@ -72,8 +72,13 @@ class Blockchain {
                newBlock.previousBlockHash = this.chain[this.chain.length-1].hash;
            }
            newBlock.hash = SHA256(JSON.stringify(newBlock)).toString();
-           this.chain.push(newBlock);
-           resolve(newBlock); 
+           let chainErrors = await this.validateChain();
+           if(chainErrors.length == 0){
+               this.chain.push(newBlock);
+               resolve(newBlock); 
+           } else {
+               reject("Error Adding Block");
+           }
         });
     }
 
