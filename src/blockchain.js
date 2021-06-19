@@ -143,7 +143,12 @@ class Blockchain {
     getBlockByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
-       
+            let block = self.chain.filter(p => p.hash === hash)[0];
+            if(block){
+                resolve(block);
+            } else {
+                resolve(null);
+            }
         });
     }
 
@@ -194,7 +199,15 @@ class Blockchain {
         let self = this;
         let errorLog = [];
         return new Promise(async (resolve, reject) => {
-            
+            self.chain.forEach(async(block) => {
+                await block.validate() ? true : errorLog.push("Following Block Not Valid: " + block);
+                if(block.height != 0){
+                    if(block.previousBlockHash != self.chain[block.height -1].hash){
+                        errorLog.push("Following Block Not Valid: " + block);
+                    }
+                }
+            });      
+            resolve(errorLog);      
         });
     }
 

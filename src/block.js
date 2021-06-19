@@ -42,7 +42,7 @@ class Block {
             // Save in auxiliary variable the current block hash
             let ogHash = self.hash;
             // Recalculate the hash of the Block
-            let newHash = SHA256(JSON.stringify(new Block(this.data))).toString();
+            let newHash = SHA256(JSON.stringify(self)).toString();
             // Comparing if the hashes changed
             if(ogHash != newHash){
                 // Returning the Block is not valid
@@ -74,7 +74,7 @@ class Block {
                 if(self.height != 0){
                     resolve(dataObject);
                 }else{
-                    resolve(false);
+                    resolve(null);
                 }
          });
       
